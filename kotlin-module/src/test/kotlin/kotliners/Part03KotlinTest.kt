@@ -37,7 +37,7 @@ class Part03KotlinTest : Spek({
         }
 
         it("can serialize a list created from a non-primitive array with `asList`") {
-                serialize(arrayOf("a","b").asList())
+            serialize(arrayOf("a", "b").asList())
         }
 
         it("can serialize a list created from a primitive array with `toList`") {

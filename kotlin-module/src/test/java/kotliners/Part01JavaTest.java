@@ -1,13 +1,14 @@
 package kotliners;
 
 import org.junit.jupiter.api.Test;
+import scala.jdk.CollectionConverters;
 
 import java.util.Arrays;
-import scala.jdk.CollectionConverters;
 
 public class Part01JavaTest {
 
     HasVararg hasVararg = new HasVararg();
+
     @Test
     void classicVarargTest() {
         // not annotated
@@ -36,7 +37,6 @@ public class Part01JavaTest {
         String[] args = {"a", "b", "c"};
         hasVararg.callTheVararg(args);
     }
-
 
     @Test
     void varargPlusArrayTest() {

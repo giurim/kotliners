@@ -9,9 +9,9 @@ import scala.runtime.AbstractFunction1
 
 class Part02KotlinTest : Spek({
     val needsLambda = NeedsLambda()
-    describe ("Calling a scala lambda from Kotlin"){
-        it("works with inline lambda"){
-            val result = needsLambda.callTheLambda({s: String -> s.trim() }, "  text")
+    describe("Calling a scala lambda from Kotlin") {
+        it("works with inline lambda") {
+            val result = needsLambda.callTheLambda({ s: String -> s.trim() }, "  text")
             Assert.assertEquals("text", result)
         }
 
@@ -28,7 +28,7 @@ class Part02KotlinTest : Spek({
         }
 
         it("works in Scala 2.11 too") {
-            val f = object: AbstractFunction1<String,String>() {
+            val f = object : AbstractFunction1<String, String>() {
                 override fun apply(v1: String?) = v1?.trim()
             }
             val result = needsLambda.callTheLambda(f, "  text")
@@ -37,14 +37,14 @@ class Part02KotlinTest : Spek({
 
         it("works in Scala 2.11 too with extensions") {
             // Kotlinify
-            fun NeedsLambda.callTheLambdaKoltin(f:(String)->String,s:String): String {
-                val f1 = object: AbstractFunction1<String,String>() {
+            fun NeedsLambda.callTheLambdaKoltin(f: (String) -> String, s: String): String {
+                val f1 = object : AbstractFunction1<String, String>() {
                     override fun apply(v1: String) = f(v1)
                 }
-                return this.callTheLambda(f1,s)
+                return this.callTheLambda(f1, s)
             }
 
-            val result = needsLambda.callTheLambdaKoltin({s: String -> s.trim() }, "  text")
+            val result = needsLambda.callTheLambdaKoltin({ s: String -> s.trim() }, "  text")
             Assert.assertEquals("text", result)
         }
 

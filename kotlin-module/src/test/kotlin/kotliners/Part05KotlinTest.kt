@@ -35,18 +35,18 @@ class Part05KotlinTest : Spek({
     val kotlinMap = mapOf("a" to 1, "b" to 2)
     val scalaMap = scala.collection.JavaConverters.mapAsScalaMap(kotlinMap)
 
-    val javaMap = java.util.HashMap<String,Int>().apply{
+    val javaMap = java.util.HashMap<String, Int>().apply {
         this.putAll(kotlinMap)
     }
 
     describe("Scala Map") {
 
-        it("magically have the usual functionality"){
-            val mappedMap = scalaMap.map { e-> Tuple2(e._1, e._2+1) }
+        it("magically have the usual functionality") {
+            val mappedMap = scalaMap.map { e -> Tuple2(e._1, e._2 + 1) }
             assertEquals(2, mappedMap.get("a").get())
         }
 
-        it("it cannot be serializable with jackson without the kotlin module"){
+        it("it cannot be serializable with jackson without the kotlin module") {
             assertEquals("""{"empty":false,"traversableAgain":true}""",
                 ObjectMapper().writeValueAsString(scalaMap))
         }
@@ -54,8 +54,8 @@ class Part05KotlinTest : Spek({
 
     describe("Java Map") {
 
-        it("is just a Kotlin Map"){
-            val mappedMap = javaMap.map { e-> e.key to e.value + 1 }.toMap()
+        it("is just a Kotlin Map") {
+            val mappedMap = javaMap.map { e -> e.key to e.value + 1 }.toMap()
             assertEquals(2, mappedMap["a"])
         }
     }

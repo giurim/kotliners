@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 public class Part02JavaTest {
 
     NeedsLambda needsLambda = new NeedsLambda();
+
     @Test
     void lambdaTest() {
         String result = needsLambda.callTheLambda(s -> s.trim(), "  text");

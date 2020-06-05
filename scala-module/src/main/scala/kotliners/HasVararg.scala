@@ -3,6 +3,9 @@ package kotliners
 import scala.annotation.varargs
 
 class HasVararg {
+  val ex1 = callTheClassicVararg("a", "b", "c")
+  val ex2 = callTheClassicVarargPlus("a", "b", "c")
+
   def callTheClassicVararg(args: String*): String = args.mkString(",")
 
   def callTheClassicVarargPlus(arg1: String, args: String*): String = arg1 + "," + args.mkString(",")
@@ -12,11 +15,6 @@ class HasVararg {
 
   @varargs
   def callTheVarargPlus(arg1: String, args: String*): String = arg1 + "," + args.mkString(",")
-
-
-  val ex1 = callTheClassicVararg("a", "b", "c")
-
-  val ex2 = callTheClassicVarargPlus("a", "b", "c")
 
   // val ex3 = callTheClassicVarargPlus(Seq("a", "b","c"):_*) // NOT WORKING
 

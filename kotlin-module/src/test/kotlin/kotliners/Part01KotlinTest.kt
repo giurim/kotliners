@@ -4,7 +4,7 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import scala.jdk.CollectionConverters
 
-fun HasVararg.callTheClassicVararg(vararg args:String): String? {
+fun HasVararg.callTheClassicVararg(vararg args: String): String? {
     return this.callTheClassicVararg(
         CollectionConverters.ListHasAsScala(
             args.toList()
@@ -12,8 +12,8 @@ fun HasVararg.callTheClassicVararg(vararg args:String): String? {
     )
 }
 
-fun HasVararg.callTheClassicVarargPlus(vararg args:String): String? {
-    if (args.isEmpty()){
+fun HasVararg.callTheClassicVarargPlus(vararg args: String): String? {
+    if (args.isEmpty()) {
         throw IllegalArgumentException("There should be at least one argument")
     }
     return this.callTheClassicVarargPlus(
@@ -21,7 +21,6 @@ fun HasVararg.callTheClassicVarargPlus(vararg args:String): String? {
         CollectionConverters.ListHasAsScala(args.drop(1)).asScala().toSeq())
 
 }
-
 
 
 class Part01KotlinTest : Spek({

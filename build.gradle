@@ -1,0 +1,84 @@
+buildscript {
+  repositories {
+    mavenCentral()
+    jcenter()
+    maven {
+      url 'https://dl.bintray.com/kotlin/kotlin-dev/'
+    }
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+
+  dependencies {
+    classpath group: 'org.jetbrains.kotlin', name: 'kotlin-gradle-plugin', version: "$kotlin_version"
+    classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.8.1'
+    classpath "com.adarshr:gradle-test-logger-plugin:1.7.0"
+  }
+}
+
+allprojects {
+  group 'com.ekata'
+
+  repositories {
+    mavenCentral()
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-dev/' }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+  }
+
+  apply plugin: 'java'
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+
+  dependencies {
+//    // Spark is picky when it comes to jackson versions
+//    compile("com.fasterxml.jackson.core:jackson-core:$pinned_jackson_version") {
+//      force = true
+//    }
+//    compile("com.fasterxml.jackson.core:jackson-databind:$pinned_jackson_version") {
+//      force = true
+//    }
+//    compile("com.fasterxml.jackson.core:jackson-annotations:$pinned_jackson_version") {
+//      force = true
+//    }
+    //compile group: 'com.fasterxml.jackson.module', name: "jackson-module-scala_$scala_lib_version", version: "$pinned_jackson_version"
+
+
+    testRuntime group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.30'
+    testRuntime group: 'log4j', name: 'log4j', version: '1.2.17'
+
+    testRuntime "org.junit.platform:junit-platform-engine:$junit_platform_version"
+    testRuntime "org.junit.platform:junit-platform-launcher:$junit_platform_version"
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_jupiter_version")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit_jupiter_version")
+  }
+
+  test {
+    //workingDir  = rootProject.projectDir
+    useJUnitPlatform {
+      includeEngines  'junit-jupiter'
+    }
+    reports {
+      junitXml.enabled true
+      html.enabled true
+    }
+
+    testLogging {
+      showStandardStreams = false
+    }
+  }
+
+  apply plugin: "com.adarshr.test-logger"
+
+  testlogger {
+    theme 'standard-parallel'
+    showFullStackTraces true
+    showStandardStreams = true
+    showPassedStandardStreams = false
+    showSkippedStandardStreams = false
+    showFailedStandardStreams = true
+  }
+
+}
+

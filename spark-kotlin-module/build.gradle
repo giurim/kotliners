@@ -1,0 +1,41 @@
+dependencies {
+    compile project(":spark-scala-module")
+
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    testCompile group: 'org.mockito', name: 'mockito-inline', version: '2.18.0'
+    testCompile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+    testCompile group: 'org.jetbrains.kotlin', name: 'kotlin-test-junit', version: kotlin_version
+    testRuntime "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    testCompile(group: 'com.nhaarman', name: 'mockito-kotlin-kt1.1', version: '1.5.0') {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+
+    testCompile("org.spekframework.spek2:spek-dsl-jvm:$spek2_version") {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+
+    testRuntime("org.spekframework.spek2:spek-runner-junit5:$spek2_version") {
+        exclude group: 'org.junit.platform'
+        exclude group: 'org.jetbrains.kotlin'
+    }
+
+}
+
+apply plugin: 'kotlin'
+
+test {
+    useJUnitPlatform {
+        includeEngines 'spek2', 'junit-jupiter'
+    }
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}

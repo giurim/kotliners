@@ -1,0 +1,8 @@
+rootProject.name = 'kotliners-examples'
+
+include 'scala-module'
+include 'kotlin-module'
+include 'shaded-module'
+include 'spark-scala-module'
+include 'spark-kotlin-module'
+

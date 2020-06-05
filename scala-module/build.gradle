@@ -1,0 +1,28 @@
+apply plugin: 'scala'
+
+project.sourceSets.main.scala.srcDir "src/main/java"
+project.sourceSets.main.java.srcDirs = []
+
+compileScala {
+    scalaCompileOptions.additionalParameters = ["-feature", "-target:jvm-1.8"]
+}
+
+test {
+    useJUnitPlatform {
+        includeEngines 'scalatest', 'junit-jupiter'
+        testLogging {
+            events("passed", "skipped", "failed")
+        }
+    }
+}
+
+dependencies {
+    compile group: 'org.scala-lang', name: 'scala-library', version: scala_version
+    compile group: 'org.scala-lang', name: 'scala-reflect', version: scala_version
+    compile group: 'org.scala-lang', name: 'scala-compiler', version: scala_version
+
+    testImplementation "org.scalacheck:scalacheck_$scala_lib_version:1.14.1"
+    testImplementation "org.scalatest:scalatest_$scala_lib_version:3.2.0-M3"
+    testRuntime "co.helmethair:scalatest-junit-runner:0.1.3"
+
+}

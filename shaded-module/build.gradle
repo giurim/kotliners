@@ -1,0 +1,39 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
+    }
+}
+
+dependencies {
+    compile "com.fasterxml.jackson.core:jackson-core:$jackson_version"
+    compile "com.fasterxml.jackson.core:jackson-databind:$jackson_version"
+    compile "com.fasterxml.jackson.core:jackson-annotations:$jackson_version"
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version"
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
+
+test {
+    useJUnitPlatform {
+        includeEngines 'spek2', 'junit-jupiter'
+    }
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+shadowJar {
+    relocate 'com.fasterxml.jackson', 'shadowed.com.fasterxml.jackson'
+    dependencies {
+        exclude(dependency {
+            it.moduleGroup == 'org.jetbrains.kotlin'
+        })
+    }
+}
